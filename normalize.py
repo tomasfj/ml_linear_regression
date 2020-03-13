@@ -3,15 +3,15 @@ import csv
 # filename_read = 'val_data.csv'
 # filename_write = 'normal_val_data.csv'
 
-# filename_read = 'test_data.csv'
-# filename_write = 'normal_test_data.csv'
+filename_read = 'test_data.csv'
+filename_write = 'normal_test_data.csv'
 
-filename_read = 'train_data.csv'
-filename_write = 'normal_train_data.csv'
+# filename_read = 'train_data.csv'
+# filename_write = 'normal_train_data.csv'
 
 data = []
 
-maxs_mins = [ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]  ]
+maxs_mins = [ [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]  ]
 
 # reading from file
 with open( filename_read ) as csv_file:

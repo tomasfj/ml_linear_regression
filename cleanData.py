@@ -35,11 +35,11 @@ with open(filename_read) as csv_file:
         else:
             temp_list = []
 
-            # temp_list = [0 - horaIndex, 1 - commentCount, 2 - dislikeCount, 3 - likeCount, 4 - viewCount, 5 - time_in_secs, 
-            #              6 - commentCount_diff, 7 - dislikeCount_diff, 8 - likeCount_diff, 9 - viewCount_diff]
+            # temp_list = [0 - commentCount, 1 - dislikeCount, 2 - likeCount, 3 - viewCount, 4 - time_in_secs, 
+            #              5 - commentCount_diff, 6 - dislikeCount_diff, 7 - likeCount_diff, 8 - viewCount_diff]
 
-            horaIndex = row[1]
-            temp_list.append( row[1] )
+            #horaIndex = row[1]
+            #temp_list.append( row[1] )
 
             commentCount = row[3]
             temp_list.append( row[3] )
@@ -114,63 +114,63 @@ for i in range(len(data)):
     if( i <= len(data) * 0.8 ):
         list_train.append(data[i])
 
+        if( data[i][0] != '' ):
+            train_count_comment += float( data[i][0] )
+        if( data[i][5] != '' ):
+            train_count_comment_diff += float( data[i][5] )
         if( data[i][1] != '' ):
-            train_count_comment += float( data[i][1] )
+            train_count_dislike += float( data[i][1] )
         if( data[i][6] != '' ):
-            train_count_comment_diff += float( data[i][6] )
+            train_count_dislike_diff += float( data[i][6] )
         if( data[i][2] != '' ):
-            train_count_dislike += float( data[i][2] )
+            train_count_like += float( data[i][2] )
         if( data[i][7] != '' ):
-            train_count_dislike_diff += float( data[i][7] )
+            train_count_like_diff += float( data[i][7] )
         if( data[i][3] != '' ):
-            train_count_like += float( data[i][3] )
+            train_count_view += float( data[i][3] )
         if( data[i][8] != '' ):
-            train_count_like_diff += float( data[i][8] )
-        if( data[i][4] != '' ):
-            train_count_view += float( data[i][4] )
-        if( data[i][9] != '' ):
-            train_count_view_diff += float( data[i][9] )
+            train_count_view_diff += float( data[i][8] )
 
     elif( ( i > len(data) * 0.8 ) and ( i <= len(data) * 0.9 ) ):
         list_test.append(data[i])
 
+        if( data[i][0] != '' ):
+            test_count_comment += float( data[i][0] )
+        if( data[i][5] != '' ):
+            test_count_comment_diff += float( data[i][5] )
         if( data[i][1] != '' ):
-            test_count_comment += float( data[i][1] )
+            test_count_dislike += float( data[i][3] )
         if( data[i][6] != '' ):
-            test_count_comment_diff += float( data[i][6] )
+            test_count_dislike_diff += float( data[i][6] )
         if( data[i][2] != '' ):
-            test_count_dislike += float( data[i][2] )
+            test_count_like += float( data[i][2] )
         if( data[i][7] != '' ):
-            test_count_dislike_diff += float( data[i][7] )
+            test_count_like_diff += float( data[i][7] )
         if( data[i][3] != '' ):
-            test_count_like += float( data[i][3] )
+            test_count_view += float( data[i][3] )
         if( data[i][8] != '' ):
-            test_count_like_diff += float( data[i][8] )
-        if( data[i][4] != '' ):
-            test_count_view += float( data[i][4] )
-        if( data[i][9] != '' ):
-            test_count_view_diff += float( data[i][9] )
+            test_count_view_diff += float( data[i][8] )
 
 
     else:
         list_val.append(data[i])
 
+        if( data[i][0] != '' ):
+            val_count_comment += float( data[i][0] )
+        if( data[i][5] != '' ):
+            val_count_comment_diff += float( data[i][5] )
         if( data[i][1] != '' ):
-            val_count_comment += float( data[i][1] )
+            val_count_dislike += float( data[i][1] )
         if( data[i][6] != '' ):
-            val_count_comment_diff += float( data[i][6] )
+            val_count_dislike_diff += float( data[i][6] )
         if( data[i][2] != '' ):
-            val_count_dislike += float( data[i][2] )
+            val_count_like += float( data[i][2] )
         if( data[i][7] != '' ):
-            val_count_dislike_diff += float( data[i][7] )
+            val_count_like_diff += float( data[i][7] )
         if( data[i][3] != '' ):
-            val_count_like += float( data[i][3] )
+            val_count_view += float( data[i][3] )
         if( data[i][8] != '' ):
-            val_count_like_diff += float( data[i][8] )
-        if( data[i][4] != '' ):
-            val_count_view += float( data[i][4] )
-        if( data[i][9] != '' ):
-            val_count_view_diff += float( data[i][9] )
+            val_count_view_diff += float( data[i][8] )
 
 print( 'DONE SPLITING' )
 
@@ -181,22 +181,22 @@ with open(filename_write_train, mode = 'a') as new_csv_file:
     #csv_writer.writerow([horaIndex, commentCount, dislikeCount, likeCount, viewCount, time_in_secs, commentCount_diff, dislikeCount_diff, likeCount_diff, viewCount_diff])
     
     for i in range(len(list_train)):
-        if( list_train[i][1] == '' ): # commentCount
-            list_train[i][1] = train_count_comment / len(list_train)
-        if( list_train[i][2] == '' ): # dislikeCount
-            list_train[i][2] = train_count_dislike / len(list_train)
-        if( list_train[i][3] == '' ): # likeCount
-            list_train[i][3] = train_count_like / len(list_train)
-        if( list_train[i][4] == '' ): # viewCount
-            list_train[i][4] = train_count_view / len(list_train)
-        if( list_train[i][6] == '' ): # commentCount_diff
-            list_train[i][6] = train_count_comment_diff / len(list_train)
-        if( list_train[i][7] == '' ): # dislikeCount_diff
-            list_train[i][7] = train_count_dislike_diff / len(list_train)
-        if( list_train[i][8] == '' ): # likeCount_diff
-            list_train[i][8] = train_count_like_diff / len(list_train)
-        if( list_train[i][9] == '' ): # viewCount_diff
-            list_train[i][9] = train_count_view_diff / len(list_train)
+        if( list_train[i][0] == '' ): # commentCount
+            list_train[i][0] = train_count_comment / len(list_train)
+        if( list_train[i][1] == '' ): # dislikeCount
+            list_train[i][1] = train_count_dislike / len(list_train)
+        if( list_train[i][2] == '' ): # likeCount
+            list_train[i][2] = train_count_like / len(list_train)
+        if( list_train[i][3] == '' ): # viewCount
+            list_train[i][3] = train_count_view / len(list_train)
+        if( list_train[i][5] == '' ): # commentCount_diff
+            list_train[i][5] = train_count_comment_diff / len(list_train)
+        if( list_train[i][6] == '' ): # dislikeCount_diff
+            list_train[i][6] = train_count_dislike_diff / len(list_train)
+        if( list_train[i][7] == '' ): # likeCount_diff
+            list_train[i][7] = train_count_like_diff / len(list_train)
+        if( list_train[i][8] == '' ): # viewCount_diff
+            list_train[i][8] = train_count_view_diff / len(list_train)
         
         
         csv_writer.writerow(list_train[i])
@@ -210,22 +210,22 @@ with open(filename_write_test, mode = 'a') as new_csv_file:
     #csv_writer.writerow([horaIndex, commentCount, dislikeCount, likeCount, viewCount, time_in_secs, commentCount_diff, dislikeCount_diff, likeCount_diff, viewCount_diff])
     
     for i in range(len(list_test)):
-        if( list_test[i][1] == '' ): # commentCount
-            list_test[i][1] = test_count_comment / len(list_test)
-        if( list_test[i][2] == '' ): # dislikeCount
-            list_test[i][2] = test_count_dislike / len(list_test)
-        if( list_test[i][3] == '' ): # likeCount
-            list_test[i][3] = test_count_like / len(list_test)
-        if( list_test[i][4] == '' ): # viewCount
-            list_test[i][4] = test_count_view / len(list_test)
-        if( list_test[i][6] == '' ): # commentCount_diff
-            list_test[i][6] = test_count_comment_diff / len(list_test)
-        if( list_test[i][7] == '' ): # dislikeCount_diff
-            list_test[i][7] = test_count_dislike_diff / len(list_test)
-        if( list_test[i][8] == '' ): # likeCount_diff
-            list_test[i][8] = test_count_like_diff / len(list_test)
-        if( list_test[i][9] == '' ): # viewCount_diff
-            list_test[i][9] = test_count_view_diff / len(list_test)
+        if( list_test[i][0] == '' ): # commentCount
+            list_test[i][0] = test_count_comment / len(list_test)
+        if( list_test[i][1] == '' ): # dislikeCount
+            list_test[i][1] = test_count_dislike / len(list_test)
+        if( list_test[i][2] == '' ): # likeCount
+            list_test[i][2] = test_count_like / len(list_test)
+        if( list_test[i][3] == '' ): # viewCount
+            list_test[i][3] = test_count_view / len(list_test)
+        if( list_test[i][5] == '' ): # commentCount_diff
+            list_test[i][5] = test_count_comment_diff / len(list_test)
+        if( list_test[i][6] == '' ): # dislikeCount_diff
+            list_test[i][6] = test_count_dislike_diff / len(list_test)
+        if( list_test[i][7] == '' ): # likeCount_diff
+            list_test[i][7] = test_count_like_diff / len(list_test)
+        if( list_test[i][8] == '' ): # viewCount_diff
+            list_test[i][8] = test_count_view_diff / len(list_test)
         
         
         csv_writer.writerow(list_test[i])
@@ -239,22 +239,22 @@ with open(filename_write_val, mode = 'a') as new_csv_file:
     #csv_writer.writerow([horaIndex, commentCount, dislikeCount, likeCount, viewCount, time_in_secs, commentCount_diff, dislikeCount_diff, likeCount_diff, viewCount_diff])
     
     for i in range(len(list_val)):
-        if( list_val[i][1] == '' ): # commentCount
-            list_val[i][1] = val_count_comment / len(list_val)
-        if( list_val[i][2] == '' ): # dislikeCount
-            list_val[i][2] = val_count_dislike / len(list_val)
-        if( list_val[i][3] == '' ): # likeCount
-            list_val[i][3] = val_count_like / len(list_val)
-        if( list_val[i][4] == '' ): # viewCount
-            list_val[i][4] = val_count_view / len(list_val)
-        if( list_val[i][6] == '' ): # commentCount_diff
-            list_val[i][6] = val_count_comment_diff / len(list_val)
-        if( list_val[i][7] == '' ): # dislikeCount_diff
-            list_val[i][7] = val_count_dislike_diff / len(list_val)
-        if( list_val[i][8] == '' ): # likeCount_diff
-            list_val[i][8] = val_count_like_diff / len(list_val)
-        if( list_val[i][9] == '' ): # viewCount_diff
-            list_val[i][9] = val_count_view_diff / len(list_val)
+        if( list_val[i][0] == '' ): # commentCount
+            list_val[i][0] = val_count_comment / len(list_val)
+        if( list_val[i][1] == '' ): # dislikeCount
+            list_val[i][1] = val_count_dislike / len(list_val)
+        if( list_val[i][2] == '' ): # likeCount
+            list_val[i][2] = val_count_like / len(list_val)
+        if( list_val[i][3] == '' ): # viewCount
+            list_val[i][3] = val_count_view / len(list_val)
+        if( list_val[i][5] == '' ): # commentCount_diff
+            list_val[i][5] = val_count_comment_diff / len(list_val)
+        if( list_val[i][6] == '' ): # dislikeCount_diff
+            list_val[i][6] = val_count_dislike_diff / len(list_val)
+        if( list_val[i][7] == '' ): # likeCount_diff
+            list_val[i][7] = val_count_like_diff / len(list_val)
+        if( list_val[i][8] == '' ): # viewCount_diff
+            list_val[i][8] = val_count_view_diff / len(list_val)
         
         
         csv_writer.writerow(list_val[i])

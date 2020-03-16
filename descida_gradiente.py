@@ -69,12 +69,14 @@ def descida(thetas, x, y):
     erro_atual = 0
     erro_anterior = 0
     thetas_anteriores = []
+    passo = 0.1
+    iteracoes = 50
 
     # nº iterações (n=1000)
-    for i in range(10):
+    for i in range(iteracoes):
         print('Epoca: ' + str(i))
         for n, t in enumerate(thetas):
-            thetas[n] = t - ( (0.1) * func_aux(x, y, thetas, n) )
+            thetas[n] = t - ( (passo) * func_aux(x, y, thetas, n) )
         
         if i == 0:
             erro_atual = erro( thetas, x_val, y_val )
@@ -87,16 +89,18 @@ def descida(thetas, x, y):
             print( 'erro atual: ' + str(erro_atual) + ' erro anterior: ' + str(erro_anterior) )
             
             if erro_atual > erro_anterior:
-                print(i)
-                print( thetas )
+                #print(i)
+                #print( thetas )
+                print(erros)
+                print( np.arange(i) )
 
-                desenho(erros, np.arange(i))
+                desenho(erros, np.arange(i+1))
                 return( thetas_anteriores )
             else:
                 erro_anterior = erro_atual
                 thetas_anteriores = thetas
     
-    desenho(erros, np.arange(10))
+    desenho(erros, np.arange(iteracoes))
     return(thetas)
 
 def f2(thetas, x):
@@ -109,6 +113,13 @@ def derivada_f2(t, thetas, x, y):
         return( 2 * ( f2(thetas, x) - y ) )
     
     return( 2 * ( f2(thetas, x) - y ) * x[t] )
+
+def f3(thetas, x):
+    return( thetas[0][0] * (x[0] * 2 ) + thetas[1][0] * (x[1] * 2 ) + thetas[2][0] * (x[2] * 2 ) + thetas[3][0] * (x[3] * 2 ) + thetas[4][0] * (x[4] * 2 ) + thetas[5][0] * (x[5] * 2 ) + thetas[6][0] * (x[6] * 2 ) + thetas[7][0] * x[7] * 2  + thetas[8][0] )
+
+
+def derivada_f3(t, thetas, x, y):
+    return( 2 * x[t] )
 
 
 def func_aux(x,y,thetas, j):

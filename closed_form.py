@@ -34,7 +34,7 @@ print( 'DONE READING' )
 
 def closed_form(x, y):
     #print( x.shape() )
-    #temp_x = [ [x[i].append(1)] for i in range( len(x) ) ]
+    #temp_x = [ [x[i] * 2 .append(1)] for i in range( len(x) ) ]
     temp_x = []
     for i in x:
         i.append(1.0)
@@ -56,11 +56,14 @@ def f(thetas, x):
 def f2(thetas, x):
     return( thetas[0][0] * (x[0]) + thetas[1][0] * (x[1]) + thetas[2][0] * (x[2]) + thetas[3][0] * (x[3]) + thetas[4][0] * (x[4]) + thetas[5][0] * (x[5]) + thetas[6][0] * (x[6]) + thetas[7][0] * x[7] + thetas[8][0] )
 
+def f3(thetas, x):
+    return( thetas[0][0] * (x[0] * 2 ) + thetas[1][0] * (x[1] * 2 ) + thetas[2][0] * (x[2] * 2 ) + thetas[3][0] * (x[3] * 2 ) + thetas[4][0] * (x[4] * 2 ) + thetas[5][0] * (x[5] * 2 ) + thetas[6][0] * (x[6] * 2 ) + thetas[7][0] * x[7] * 2  + thetas[8][0] )
+
 def erro(thetas, x_test, y_test):
     sum_e = 0
     for i in range( len(x_test) ):
         #e = ( f( thetas, x_test[i] ) - y_test[i] ) ** 2
-        e = ( f2( thetas, x_test[i] ) - y_test[i] ) ** 2
+        e = ( f3( thetas, x_test[i] ) - y_test[i] ) ** 2
         sum_e += e
     
     return( sum_e / len( x_test ) )

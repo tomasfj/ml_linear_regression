@@ -69,8 +69,8 @@ def descida(thetas, x, y):
     erro_atual = 0
     erro_anterior = 0
     thetas_anteriores = []
-    passo = 0.1
-    iteracoes = 50
+    passo = 0.0001
+    iteracoes = 200
 
     # nº iterações (n=1000)
     for i in range(iteracoes):
@@ -113,13 +113,6 @@ def derivada_f2(t, thetas, x, y):
         return( 2 * ( f2(thetas, x) - y ) )
     
     return( 2 * ( f2(thetas, x) - y ) * x[t] )
-
-def f3(thetas, x):
-    return( thetas[0][0] * (x[0] * 2 ) + thetas[1][0] * (x[1] * 2 ) + thetas[2][0] * (x[2] * 2 ) + thetas[3][0] * (x[3] * 2 ) + thetas[4][0] * (x[4] * 2 ) + thetas[5][0] * (x[5] * 2 ) + thetas[6][0] * (x[6] * 2 ) + thetas[7][0] * x[7] * 2  + thetas[8][0] )
-
-
-def derivada_f3(t, thetas, x, y):
-    return( 2 * x[t] )
 
 
 def func_aux(x,y,thetas, j):
